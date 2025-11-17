@@ -1,21 +1,18 @@
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env.CLAUDE_API_KEY,
+    apiKey: process.env.CLAUDE_API_KEY
 });
 
-export async function askClaude(message) {
-  try {
+export async function askClaude(prompt) {
     const response = await client.messages.create({
-      model: "claude-3-haiku-20240307",
-      max_tokens: 200,
-      messages: [{ role: "user", content: message }],
+        model: "claude-3-5-sonnet-latest",
+        max_tokens: 200,
+        messages: [
+            { role: "user", content: prompt }
+        ],
     });
 
     return response.content[0].text;
-  } catch (err) {
-    console.error("Claude Error →", err);
-    return "Baron is thinking…";
-  }
 }
 
