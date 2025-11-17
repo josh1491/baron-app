@@ -1,5 +1,5 @@
-import { askClaude } from "../internal/llm.js";
-import { baronSettings } from "../config/settings.js";
+import { askClaude } from "./internal/llm.js";
+import { baronSettings } from "./config/settings.js";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
