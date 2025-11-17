@@ -1,4 +1,20 @@
+import { useState } from "react";
+
 export default function ChatPage() {
+  const [msg, setMsg] = useState("");
+  const [response, setResponse] = useState("");
+
+  async function sendMsg() {
+    const res = await fetch("/api/reply", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: msg })
+    });
+
+    const data = await res.json();
+    setResponse(data.reply || JSON.stringify(data));
+  }
+
   return (
     <div style={{
       fontFamily: "Arial",
@@ -9,38 +25,36 @@ export default function ChatPage() {
       <h1>Baron Chat</h1>
       <p>Your personal AI agent is ready.</p>
 
-      <textarea id="msg" rows="4" style={{
-        width: "100%",
-        padding: "10px",
-        marginBottom: "10px"
-      }} placeholder="Type your message here..."></textarea>
+      <textarea
+        rows={4}
+        value={msg}
+        onChange={e => setMsg(e.target.value)}
+        placeholder="Type your message here…"
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "20px"
+        }}
+      />
 
-      <button onclick="sendMsg()" style={{
-        padding: '10px 20px',
-        fontSize: '16px'
-      }}>Send</button>
+      <button
+        onClick={sendMsg}
+        style={{
+          padding: "10px 20px",
+          fontSize: "18px"
+        }}
+      >
+        Send
+      </button>
 
-      <pre id="response" style={{
-        whiteSpace: 'pre-wrap',
-        marginTop: "20px"
-      }}></pre>
-
-      <script>
-        async function sendMsg() {
-          const txt = document.getElementById("msg").value;
-
-          const res = await fetch("/api/reply", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ message: txt })
-          });
-
-          const data = await res.json();
-          document.getElementById("response").innerText = data.reply || JSON.stringify(data);
-        }
-      </script>
+      <pre
+        style={{
+          whiteSpace: "pre-wrap",
+          marginTop: "20px"
+        }}
+      >
+        {response}
+      </pre>
     </div>
   );
 }
