@@ -1,7 +1,10 @@
-export default async function handler(req, res) {
-  const body = JSON.parse(req.body || "{}");
+export default function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Only POST allowed" });
+  }
 
-  res.status(200).json({
-    reply: "Your message was: " + body.text
+  const { message } = req.body;
+  return res.status(200).json({
+    reply: `You said: ${message}`
   });
 }
