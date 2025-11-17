@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 
 const client = new Anthropic({
-  apiKey: process.env.CLAUDE_API_KEY
+  apiKey: process.env.CLAUDE_API_KEY,
 });
 
 export async function askClaude(prompt) {
@@ -13,5 +13,6 @@ export async function askClaude(prompt) {
     ],
   });
 
+  // Anthropic SDK returns text like this:
   return response.content[0].text;
 }
