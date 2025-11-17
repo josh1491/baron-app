@@ -1,8 +1,10 @@
 export default function Home() {
   return (
-    <div>
-      <h1>Baron is Running</h1>
-      <p>Your API is ready at /api/reply</p>
-    </div>
+    <html>
+      <body>
+        <h1>Baron Dashboard</h1>
+        <p>Your API is ready at: /api/reply</p>
+      </body>
+    </html>
   )
 }
