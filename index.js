@@ -1,3 +1,8 @@
-export default function handler(req, res) {
-  res.status(200).send("Baron online");
+export default function Home() {
+  return (
+    <div>
+      <h1>Baron is Running</h1>
+      <p>Your API is ready at /api/reply</p>
+    </div>
+  )
 }
